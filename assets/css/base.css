@@ -1,0 +1,212 @@
+/* Reset, typography voices, controls and browser surfaces. */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+[hidden] { display: none !important; }
+
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--bar-h);
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-stretch: 100%;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal;
+  overflow-x: clip;
+}
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+:where(ul, ol)[role="list"] { list-style: none; padding: 0; }
+h1, h2, h3, h4 { font-weight: inherit; text-wrap: balance; }
+p { text-wrap: pretty; }
+table { border-collapse: collapse; }
+
+/* Browser surfaces carry the palette too */
+::selection { background: var(--orange); color: var(--ink-0); }
+html { scrollbar-color: var(--ink-2) var(--ink-0); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink-0); }
+::-webkit-scrollbar-thumb { background: var(--ink-2); border: 2px solid var(--ink-0); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+input, textarea, select { caret-color: var(--orange); accent-color: var(--orange); }
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ---------- Voices ---------- */
+
+/* Statements: extra-wide grotesk capitals, like the painted sign. */
+.display {
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* Addresses and wayfinding: spaced capitals of the awning. */
+.awning {
+  font-family: var(--font-awning);
+  font-size: var(--step--1);
+  letter-spacing: var(--awning-tracking);
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 38ch;
+  color: var(--fg);
+}
+
+.prose { max-width: var(--measure); color: var(--fg-muted); }
+.prose p + p { margin-top: var(--space-s); }
+.prose strong { color: var(--fg); font-weight: 600; }
+
+.num { font-variant-numeric: tabular-nums lining-nums; }
+.nowrap { white-space: nowrap; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-s); left: var(--space-s);
+  z-index: 200;
+  padding: var(--space-xs) var(--space-s);
+  background: var(--orange); color: var(--ink-0);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform var(--dur-2) var(--ease-out);
+}
+.skip-link:focus-visible { transform: none; }
+
+/* ---------- Controls ---------- */
+
+.btn {
+  --btn-bg: var(--orange);
+  --btn-fg: var(--ink-0);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  min-height: 3.25rem;
+  padding: 0 1.6em;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+}
+/* The fill rises like a sign switching on. */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink-4);
+  transform: translateY(101%);
+  transition: transform var(--dur-3) var(--ease-out);
+}
+.btn:hover::before, .btn:focus-visible::before { transform: none; }
+.btn:active { transform: scale(0.97); }
+.btn .icon { width: 1.1em; height: 1.1em; transition: transform var(--dur-3) var(--ease-out); }
+.btn:hover .icon { transform: translateX(0.2em); }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink-4);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+.btn--ghost:hover, .btn--ghost:focus-visible { color: var(--ink-0); }
+
+.btn--ink { --btn-bg: var(--ink-0); --btn-fg: var(--ink-4); }
+.btn--ink::before { background: var(--ink-4); }
+.btn--ink:hover, .btn--ink:focus-visible { color: var(--ink-0); }
+
+.btn[disabled], .btn[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+
+/* Text link with a wire underline that draws in. */
+.wire-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 calc(100% - 0.55rem) / 100% 1px;
+  transition: background-size var(--dur-3) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.wire-link:hover { background-size: 0% 1px; background-position-x: 100%; color: var(--orange); }
+.wire-link .icon { width: 1em; height: 1em; flex: none; }
+
+.icon { width: 1.25em; height: 1.25em; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* ---------- Layout helpers ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

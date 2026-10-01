@@ -1,0 +1,220 @@
+/* Cardápio page: the menu board, with numbers, leaders and prices. */
+
+.menu-hero {
+  padding-block: calc(var(--bar-h) + var(--space-3xl)) var(--space-2xl);
+  border-bottom: 1px solid var(--line);
+}
+.menu-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  gap: var(--space-l) var(--gutter);
+}
+.menu-hero__back { color: var(--fg-muted); }
+.menu-hero__back:hover { color: var(--orange); }
+.menu-hero__title { font-size: var(--step-5); }
+.menu-hero__facts { display: grid; gap: var(--space-m); justify-items: start; }
+.menu-hero__facts .lede { color: var(--fg-muted); }
+@media (max-width: 900px) {
+  .menu-hero__inner { grid-template-columns: 1fr; }
+}
+
+/* ---------- Layout ---------- */
+
+.carta-layout {
+  display: grid;
+  grid-template-columns: minmax(14rem, 3fr) minmax(0, 9fr);
+  gap: var(--space-2xl) var(--gutter);
+  align-items: start;
+  padding-block: var(--space-2xl) var(--chapter-pad);
+}
+.carta-aside {
+  position: sticky;
+  top: calc(var(--bar-h) + var(--space-l));
+  display: grid;
+  gap: var(--space-xl);
+  max-height: calc(100svh - var(--bar-h) - var(--space-xl));
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.carta-search { display: grid; gap: var(--space-2xs); }
+.carta-search label { color: var(--fg-muted); font-size: var(--step--2); }
+.carta-search__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  border-bottom: 1.5px solid var(--line-strong);
+  transition: border-color var(--dur-2) var(--ease-out);
+}
+.carta-search__field:focus-within { border-color: var(--orange); }
+.carta-search__field > .icon { color: var(--fg-muted); }
+.carta-search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 3rem;
+  background: none;
+  border: 0;
+  font-size: var(--step-0);
+}
+.carta-search input:focus-visible { outline: none; }
+.carta-search input::placeholder { color: color-mix(in srgb, var(--ink-3) 80%, var(--ink-0)); }
+.carta-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.carta-search__clear { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; color: var(--fg-muted); }
+.carta-search__clear:hover { color: var(--orange); }
+.carta-search__status { min-height: 1.5em; color: var(--fg-muted); font-size: var(--step--1); }
+
+.carta-nav ol { display: grid; }
+.carta-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 2.5rem;
+  padding-left: var(--space-m);
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color var(--dur-2) var(--ease-out);
+}
+.carta-nav a::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  transition: background-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.carta-nav a:hover { color: var(--ink-4); }
+.carta-nav a[aria-current="true"] { color: var(--ink-4); }
+.carta-nav a[aria-current="true"]::before { background: var(--bulb-amber); box-shadow: var(--glow-amber); }
+.carta-nav a.is-empty { opacity: 0.35; }
+
+/* ---------- The board ---------- */
+
+.carta { min-width: 0; }
+.carta:focus { outline: none; }
+.carta__cat {
+  padding-block: var(--space-2xl);
+  border-top: 1px solid var(--line-strong);
+  scroll-margin-top: calc(var(--bar-h) + var(--space-m));
+}
+.carta__cat:first-child { border-top: 0; padding-top: 0; }
+.carta__head { display: grid; gap: var(--space-2xs); margin-bottom: var(--space-l); }
+.carta__title { font-size: min(var(--step-3), 6.4vw); }
+.carta__lead { font-size: var(--step-1); color: var(--ink-4); }
+.carta__sub { color: var(--fg-muted); max-width: var(--measure); }
+.carta__note {
+  margin-block: var(--space-l) var(--space-s);
+  color: var(--orange);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.carta__head + .carta__note { margin-top: 0; }
+.carta__fillings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: var(--space-2xs) var(--gutter);
+  margin-bottom: var(--space-l);
+  padding: var(--space-m);
+  background: var(--ink-1);
+  border-radius: var(--radius);
+  color: var(--fg-muted);
+  font-size: var(--step--1);
+}
+.carta__fillings strong { display: block; color: var(--ink-4); font-weight: 600; font-size: var(--step-0); }
+
+.carta__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-2xl);
+}
+.carta__item {
+  padding-block: var(--space-s);
+  border-bottom: 1px solid var(--line);
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+.carta__line {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, auto) minmax(1.5rem, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-2xs);
+}
+.carta__no { color: var(--orange); font-family: var(--font-awning); font-size: var(--step--2); letter-spacing: 0.1em; }
+.carta__name { font-size: var(--step-0); font-weight: 600; line-height: 1.3; }
+.carta__leader { align-self: end; margin-bottom: 0.35em; height: 1px; background: repeating-linear-gradient(90deg, var(--line-strong) 0 2px, transparent 2px 6px); }
+.carta__price { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; white-space: nowrap; }
+.carta__desc, .carta__tag { margin-left: calc(2.6rem + var(--space-2xs)); color: var(--fg-muted); font-size: var(--step--1); }
+.carta__desc { margin-top: 0.3rem; max-width: 52ch; }
+.carta__tag { margin-top: 0.2rem; font-style: italic; color: color-mix(in srgb, var(--ink-3) 85%, var(--ink-4)); }
+.carta__list--simple .carta__line { grid-template-columns: minmax(0, auto) minmax(1.5rem, 1fr) auto; }
+.carta__list--simple .carta__no { display: none; }
+
+/* Focus one dish, the rest of the board dims. */
+@media (hover: hover) {
+  .carta__list:has(.carta__item:hover) .carta__item:not(:hover) { opacity: 0.38; }
+}
+
+.carta__item[hidden], .carta__cat[hidden] { display: none; }
+mark { background: color-mix(in srgb, var(--orange) 35%, transparent); color: inherit; border-radius: 2px; }
+
+.carta__photo { margin-block: var(--space-xs) var(--space-l); max-width: 22rem; }
+.carta__photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
+.carta__photo figcaption { margin-top: var(--space-2xs); color: var(--fg-muted); font-size: var(--step--2); }
+
+.carta__empty { display: grid; justify-items: start; gap: var(--space-m); padding-block: var(--space-2xl); }
+.carta__empty .display { font-size: var(--step-3); }
+.carta__empty p:not(.display) { color: var(--fg-muted); max-width: 46ch; }
+
+@media (max-width: 1200px) {
+  .carta__list { grid-template-columns: 1fr; }
+}
+
+/* Tablet and phone: search on top, categories as a sticky rail. */
+@media (max-width: 900px) {
+  .carta-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); padding-top: var(--space-l); }
+  .carta-aside {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    gap: var(--space-m);
+  }
+  .carta-nav {
+    position: sticky;
+    top: var(--bar-h);
+    z-index: 20;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    background: var(--ink-0);
+    border-block: 1px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+    transition: top var(--dur-3) var(--ease-out);
+  }
+  .bar.is-hidden ~ main .carta-nav { top: 0; }
+  .carta-nav::-webkit-scrollbar { display: none; }
+  .carta-nav ol { display: flex; gap: var(--space-m); width: max-content; }
+  .carta-nav a { min-height: 3rem; white-space: nowrap; }
+  /* The aside is not sticky here, so the rail sticks relative to the page. */
+  .carta-aside { display: contents; }
+  .carta-search { order: -1; }
+}
+@media (max-width: 480px) {
+  .carta__line { grid-template-columns: 2.2rem minmax(0, 1fr) auto; }
+  .carta__leader { display: none; }
+  .carta__desc, .carta__tag { margin-left: calc(2.2rem + var(--space-2xs)); }
+  .carta__list--simple .carta__line { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+/* ---------- Close ---------- */
+
+.menu-close { background: var(--orange); color: var(--ink-0); padding-block: var(--chapter-pad); }
+.menu-close ::selection { background: var(--ink-0); color: var(--orange); }
+.menu-close :focus-visible { outline-color: var(--ink-0); }
+.menu-close__inner { display: grid; justify-items: start; gap: var(--space-l); }
+.menu-close h2 { font-size: var(--step-4); max-width: 12ch; }
+.menu-close p { font-size: var(--step-1); max-width: 34ch; color: var(--on-orange-muted); }
+
+.foot--compact { padding-block: var(--space-l); }
+.foot--compact .foot__legal { margin-top: 0; }
