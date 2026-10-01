@@ -12,10 +12,9 @@ const files = [
   [nm('gsap/dist/ScrollTrigger.min.js'), 'assets/vendor/ScrollTrigger.min.js'],
   [nm('gsap/dist/SplitText.min.js'), 'assets/vendor/SplitText.min.js'],
   [nm('lenis/dist/lenis.min.js'), 'assets/vendor/lenis.min.js'],
-  [nm('@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2'), 'assets/fonts/archivo-latin-wdth.woff2'],
-  [nm('@fontsource-variable/archivo/files/archivo-latin-ext-wdth-normal.woff2'), 'assets/fonts/archivo-latin-ext-wdth.woff2'],
-  [nm('@fontsource/tenor-sans/files/tenor-sans-latin-400-normal.woff2'), 'assets/fonts/tenor-sans-latin.woff2'],
-  [nm('@fontsource/yellowtail/files/yellowtail-latin-400-normal.woff2'), 'assets/fonts/yellowtail-latin.woff2'],
+  [nm('@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2'), 'assets/fonts/playfair-latin-wght.woff2'],
+  [nm('@fontsource-variable/playfair-display/files/playfair-display-latin-wght-italic.woff2'), 'assets/fonts/playfair-latin-wght-italic.woff2'],
+  [nm('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2'), 'assets/fonts/inter-latin-wght.woff2'],
 ];
 
 for (const [from, to] of files) {

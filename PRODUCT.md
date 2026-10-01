@@ -42,6 +42,7 @@ A trattoria founded in May 1980 on Rua Avanhandava, the traditional house of the
 ## Brand Commitments
 
 - Name: Famiglia Mancini Trattoria (Italian spelling "Famiglia"). Signature line on the facade: "O Sul da Itália nessa cozinha".
+- Visual identity pinned by the user (2026-10-01): use the colours and fonts of the first proposal (https://trattoria-famiglia-mancini.netlify.app/): warm black #14100d, cream #f3ead9, Mancini red #c8262b, gold #c9922f / #e0ae52; Playfair Display (italic gold accents) and Inter.
 - Assets: round orange medallion logo with "Trattoria · Famiglia Mancini · ★1980"; red wordmark with "★1980"; the mascot illustration (figure lifting spaghetti on a fork); the painted postcard of Rua Avanhandava.
 
 ## Evidence on Hand

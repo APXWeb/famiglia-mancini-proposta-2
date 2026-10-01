@@ -99,8 +99,8 @@ function headings(gsap, SplitText) {
 }
 
 /* Signature: the medallion becomes the door. The sign turns away and leaves
-   its orange disc, the disc grows until orange owns the whole screen, and
-   the facade of Rua Avanhandava, 81 opens out of the orange. */
+   a red disc, the disc grows until the house red owns the whole screen, and
+   the facade of Rua Avanhandava, 81 opens out of it. */
 function door(gsap) {
   const stage = document.querySelector('[data-door]');
   if (!stage) return;
@@ -260,7 +260,7 @@ function streetDrift(gsap) {
   });
 }
 
-/* The orange of the sign floods the page for the reservation. */
+/* The house red floods the page for the reservation. */
 function reserveFlood(gsap) {
   const flood = document.querySelector('[data-flood]');
   if (!flood) return;

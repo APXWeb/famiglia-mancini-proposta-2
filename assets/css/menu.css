@@ -11,7 +11,7 @@
   gap: var(--space-l) var(--gutter);
 }
 .menu-hero__back { color: var(--fg-muted); }
-.menu-hero__back:hover { color: var(--orange); }
+.menu-hero__back:hover { color: var(--gold); }
 .menu-hero__title { font-size: var(--step-5); }
 .menu-hero__facts { display: grid; gap: var(--space-m); justify-items: start; }
 .menu-hero__facts .lede { color: var(--fg-muted); }
@@ -48,7 +48,7 @@
   border-bottom: 1.5px solid var(--line-strong);
   transition: border-color var(--dur-2) var(--ease-out);
 }
-.carta-search__field:focus-within { border-color: var(--orange); }
+.carta-search__field:focus-within { border-color: var(--gold); }
 .carta-search__field > .icon { color: var(--fg-muted); }
 .carta-search input {
   flex: 1;
@@ -62,7 +62,7 @@
 .carta-search input::placeholder { color: color-mix(in srgb, var(--ink-3) 80%, var(--ink-0)); }
 .carta-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
 .carta-search__clear { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; color: var(--fg-muted); }
-.carta-search__clear:hover { color: var(--orange); }
+.carta-search__clear:hover { color: var(--gold); }
 .carta-search__status { min-height: 1.5em; color: var(--fg-muted); font-size: var(--step--1); }
 
 .carta-nav ol { display: grid; }
@@ -88,7 +88,7 @@
 }
 .carta-nav a:hover { color: var(--ink-4); }
 .carta-nav a[aria-current="true"] { color: var(--ink-4); }
-.carta-nav a[aria-current="true"]::before { background: var(--bulb-amber); box-shadow: var(--glow-amber); }
+.carta-nav a[aria-current="true"]::before { background: var(--gold-bright); box-shadow: var(--glow-gold); }
 .carta-nav a.is-empty { opacity: 0.35; }
 
 /* ---------- The board ---------- */
@@ -107,7 +107,7 @@
 .carta__sub { color: var(--fg-muted); max-width: var(--measure); }
 .carta__note {
   margin-block: var(--space-l) var(--space-s);
-  color: var(--orange);
+  color: var(--gold);
   font-size: var(--step--1);
   font-weight: 600;
 }
@@ -141,10 +141,10 @@
   align-items: baseline;
   gap: var(--space-2xs);
 }
-.carta__no { color: var(--orange); font-family: var(--font-awning); font-size: var(--step--2); letter-spacing: 0.1em; }
+.carta__no { color: var(--gold); font-size: var(--step--2); font-weight: 500; letter-spacing: 0.08em; }
 .carta__name { font-size: var(--step-0); font-weight: 600; line-height: 1.3; }
 .carta__leader { align-self: end; margin-bottom: 0.35em; height: 1px; background: repeating-linear-gradient(90deg, var(--line-strong) 0 2px, transparent 2px 6px); }
-.carta__price { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; white-space: nowrap; }
+.carta__price { font-weight: 600; color: var(--gold-bright); white-space: nowrap; }
 .carta__desc, .carta__tag { margin-left: calc(2.6rem + var(--space-2xs)); color: var(--fg-muted); font-size: var(--step--1); }
 .carta__desc { margin-top: 0.3rem; max-width: 52ch; }
 .carta__tag { margin-top: 0.2rem; font-style: italic; color: color-mix(in srgb, var(--ink-3) 85%, var(--ink-4)); }
@@ -157,7 +157,7 @@
 }
 
 .carta__item[hidden], .carta__cat[hidden] { display: none; }
-mark { background: color-mix(in srgb, var(--orange) 35%, transparent); color: inherit; border-radius: 2px; }
+mark { background: color-mix(in srgb, var(--gold) 35%, transparent); color: inherit; border-radius: 2px; }
 
 .carta__photo { margin-block: var(--space-xs) var(--space-l); max-width: 22rem; }
 .carta__photo img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
@@ -209,12 +209,13 @@ mark { background: color-mix(in srgb, var(--orange) 35%, transparent); color: in
 
 /* ---------- Close ---------- */
 
-.menu-close { background: var(--orange); color: var(--ink-0); padding-block: var(--chapter-pad); }
-.menu-close ::selection { background: var(--ink-0); color: var(--orange); }
-.menu-close :focus-visible { outline-color: var(--ink-0); }
+.menu-close { background: var(--red); color: var(--ink-4); padding-block: var(--chapter-pad); }
+.menu-close ::selection { background: var(--ink-0); color: var(--ink-4); }
+.menu-close :focus-visible { outline-color: var(--ink-4); }
+.menu-close .display em { color: inherit; }
 .menu-close__inner { display: grid; justify-items: start; gap: var(--space-l); }
 .menu-close h2 { font-size: var(--step-4); max-width: 12ch; }
-.menu-close p { font-size: var(--step-1); max-width: 34ch; color: var(--on-orange-muted); }
+.menu-close p { font-size: var(--step-1); max-width: 34ch; }
 
 .foot--compact { padding-block: var(--space-l); }
 .foot--compact .foot__legal { margin-top: 0; }
