@@ -1,12 +1,14 @@
-// Cardápio page: search across every dish and a category rail that follows
+// Trattoria cardápio page: search across every dish and a category rail that follows
 // the reader.
 import { initSmoothScroll, motionAllowed } from './scroll.js';
 import { initStatus, initWhatsappLinks, initBar, initDrawer, initAnchors } from './chrome.js';
+import { initTransitions } from './transition.js';
 
 if (motionAllowed()) {
   initSmoothScroll();
   document.documentElement.classList.add('motion-ready');
 }
+initTransitions();
 initStatus();
 initWhatsappLinks();
 initBar();

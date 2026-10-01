@@ -27,7 +27,15 @@ createServer(async (req, res) => {
     let path = normalize(decodeURIComponent(url.pathname)).replace(/^([/\\])+/, '');
     if (path.includes('..')) throw Object.assign(new Error('forbidden'), { code: 'EACCES' });
     let file = join(root, path);
-    if ((await stat(file).catch(() => null))?.isDirectory()) file = join(file, 'index.html');
+    if ((await stat(file).catch(() => null))?.isDirectory()) {
+      // Like GitHub Pages: /pizzaria → /pizzaria/, so relative links resolve.
+      if (!url.pathname.endsWith('/')) {
+        res.writeHead(301, { Location: `${url.pathname}/${url.search}` });
+        res.end();
+        return;
+      }
+      file = join(file, 'index.html');
+    }
     const body = await readFile(file);
     res.writeHead(200, { 'Content-Type': types[extname(file)] || 'application/octet-stream' });
     res.end(body);

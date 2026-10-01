@@ -1,22 +1,25 @@
-// The Google map loads only when asked for: no third-party requests, cookies
-// or weight until the visitor wants it.
-const EMBED = 'https://maps.google.com/maps?q=Rua%20Avanhandava%2C%2081%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP&z=17&output=embed';
+// Google maps load only when asked for: no third-party requests, cookies or
+// weight until the visitor wants one. Each [data-map] shows the house named
+// by its data-house (or the page's house).
+import { houseById, currentHouse, mapEmbedUrl, fullAddress } from './houses.js';
 
-export function initMap() {
-  const box = document.querySelector('[data-map]');
-  const button = box?.querySelector('[data-map-load]');
-  if (!button) return;
-  button.addEventListener('click', () => {
-    box.dataset.state = 'loading';
-    const frame = document.createElement('iframe');
-    frame.src = EMBED;
-    frame.title = 'Mapa: Rua Avanhandava, 81, Bela Vista, São Paulo';
-    frame.loading = 'lazy';
-    frame.referrerPolicy = 'no-referrer-when-downgrade';
-    frame.addEventListener('load', () => {
-      box.dataset.state = 'ready';
-      button.remove();
+export function initMap(scope = document) {
+  scope.querySelectorAll('[data-map]').forEach((box) => {
+    const button = box.querySelector('[data-map-load]');
+    const house = box.dataset.house ? houseById(box.dataset.house) : currentHouse();
+    if (!button || !house) return;
+    button.addEventListener('click', () => {
+      box.dataset.state = 'loading';
+      const frame = document.createElement('iframe');
+      frame.src = mapEmbedUrl(house);
+      frame.title = `Mapa: ${fullAddress(house)}`;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      frame.addEventListener('load', () => {
+        box.dataset.state = 'ready';
+        button.remove();
+      }, { once: true });
+      box.append(frame);
     }, { once: true });
-    box.append(frame);
-  }, { once: true });
+  });
 }

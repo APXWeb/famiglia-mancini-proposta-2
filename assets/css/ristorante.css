@@ -1,0 +1,114 @@
+/* Il Ristorante, nº 126. Same family, another evening: a bottle-green
+   ground instead of warm black, Playfair at a light weight and in italic,
+   compositions on the centre line, gold drawn as a fine line. No photograph
+   of the house has been supplied, so its number is the image. */
+
+html[data-house="ristorante"] {
+  --bg: var(--green-night);
+  --line: rgba(243, 234, 217, 0.12);
+  --line-strong: rgba(243, 234, 217, 0.26);
+  --display-weight: 400;
+  --mark: var(--gold-bright);
+  scrollbar-color: var(--green) var(--green-night);
+}
+.house--ristorante .display em { font-weight: 400; }
+.house--ristorante .bar.is-solid { background: color-mix(in srgb, var(--green-night) 94%, transparent); }
+.house--ristorante .drawer { background: var(--green-night); }
+.house--ristorante .foot { background: var(--green-night); }
+.house--ristorante .btn { --btn-bg: var(--green); box-shadow: inset 0 0 0 1px var(--line-strong); }
+
+/* ---------- Entrada ---------- */
+
+.r-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--head-h) + var(--space-2xl)) 0 var(--space-3xl);
+  background: var(--green);
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+}
+.r-hero__no {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  translate: -50% -46%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(15rem, 46vw, 44rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--gold-bright) 55%, transparent);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.r-hero__content { display: grid; justify-items: center; }
+.r-hero__title { display: grid; justify-items: center; font-family: var(--font-display); font-weight: 400; line-height: 0.9; }
+.r-hero__il { font-style: italic; font-size: var(--step-3); color: var(--gold-bright); }
+.r-hero__name { font-size: clamp(3.6rem, 1rem + 11vw, 11rem); letter-spacing: -0.03em; }
+.r-hero__meta { margin-top: var(--space-l); color: var(--ink-3); }
+.r-hero__actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-m) var(--space-l); margin-top: var(--space-xl); }
+.r-hero__group {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: var(--space-l);
+  color: var(--ink-3);
+}
+.r-hero__group::before, .r-hero__group::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 1px;
+  margin-inline: var(--space-s);
+  vertical-align: middle;
+  background: var(--line-strong);
+}
+
+@media (max-width: 760px) {
+  /* On phones the number sits higher and fainter, behind the name only. */
+  .r-hero__no { top: 40%; font-size: 78vw; -webkit-text-stroke-color: color-mix(in srgb, var(--gold-bright) 32%, transparent); }
+}
+
+/* ---------- A casa ---------- */
+
+.r-casa { padding-block: var(--chapter-pad); }
+.r-casa__inner { display: grid; justify-items: center; gap: var(--space-m); text-align: center; }
+.r-casa__year {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-3);
+  color: var(--gold-bright);
+}
+.r-casa__title { font-size: var(--step-5); max-width: 13ch; }
+.r-casa__text { max-width: 44ch; font-size: var(--step-1); line-height: 1.55; color: var(--ink-3); }
+.r-casa__facts { display: grid; gap: var(--space-s); max-width: 40rem; margin-top: var(--space-m); padding-top: var(--space-m); border-top: 1px solid var(--line-strong); }
+.r-casa__facts li { color: var(--ink-4); }
+.r-casa__facts .awning { display: block; color: var(--gold-bright); margin-bottom: 0.2rem; }
+.r-casa__frames {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  grid-template-areas: "tall wide" "tall small";
+  gap: var(--gutter);
+  margin-top: var(--space-3xl);
+}
+.r-casa__frames .frame-slot--tall { grid-area: tall; }
+.r-casa__frames .frame-photo--wide { grid-area: wide; }
+.r-casa__frames .frame-photo--small { grid-area: small; width: 62%; }
+@media (max-width: 760px) {
+  .r-casa__frames { grid-template-columns: 1fr; grid-template-areas: "wide" "small" "tall"; }
+  .r-casa__frames .frame-slot--tall { aspect-ratio: 4 / 3; }
+  .r-casa__frames .frame-photo--small { width: 100%; }
+}
+
+/* ---------- Cardápio, centred ---------- */
+
+.house--ristorante .carte { border-top: 1px solid var(--line); }
+
+/* The menu page in the house's evening */
+.house--ristorante .menu-close .btn--ink { --btn-bg: var(--green-night); }

@@ -1,0 +1,379 @@
+/* Famiglia Mancini: the group's page. The family first (the street at night),
+   then the street's story, the three houses to choose from, the shared
+   reservation, the menus kept apart, and the street drawn to find each house.
+   Default styles are the complete static page; hub-scenes.js layers the
+   choreography on top (html.motion-ready). */
+
+section[data-chapter] { position: relative; }
+
+.bar__wordmark { font-size: 1.15rem; line-height: 1; padding-top: 0.1em; }
+@media (max-width: 480px) { .bar__wordmark { display: none; } }
+
+/* ---------- Entrada ---------- */
+
+.entry {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  padding-top: calc(var(--head-h) + clamp(5rem, 16svh, 11rem));
+  overflow: hidden;
+  isolation: isolate;
+}
+.entry__lights { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.entry::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 50%;
+  z-index: -2;
+  background: radial-gradient(60% 80% at 50% 100%, color-mix(in srgb, var(--gold) 10%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.entry__content { align-self: end; padding-bottom: var(--space-2xl); }
+.entry__title { font-size: clamp(4rem, 1rem + 13vw, 12.5rem); line-height: 0.9; letter-spacing: -0.025em; }
+.entry__line { display: block; overflow: clip; padding-bottom: 0.2em; margin-bottom: -0.2em; }
+.entry__line-inner { display: block; }
+.entry__line + .entry__line { padding-left: clamp(1.5rem, 9vw, 9rem); }
+.entry__street { margin-top: var(--space-l); color: var(--fg-muted); }
+.entry__lede { margin-top: var(--space-m); color: var(--fg-muted); }
+.entry__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m) var(--space-l); margin-top: var(--space-xl); }
+
+.entry__numbers {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding-block: var(--space-m);
+  border-top: 1px solid var(--line);
+}
+.entry__numbers a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6em;
+  min-height: 2.75rem;
+  align-items: center;
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color var(--dur-2) var(--ease-out);
+}
+.entry__numbers .num { color: var(--gold); }
+.entry__numbers a:hover { color: var(--ink-4); }
+/* On phones the group strip above already lists the houses. */
+@media (max-width: 700px) { .entry__numbers { display: none; } }
+
+html.has-motion:not(.motion-ready) .entry__title,
+html.has-motion:not(.motion-ready) [data-entry-fade] {
+  opacity: 0;
+  animation: reveal-fallback 0.6s var(--ease-out) 3.5s forwards;
+}
+@keyframes reveal-fallback { to { opacity: 1; } }
+
+/* ---------- A rua: the painting stays, the story passes over it ---------- */
+
+.saga { background: var(--ink-0); }
+.saga__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+.saga__frame { position: absolute; inset: 0; }
+.saga__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
+.saga__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(20 16 13 / 0.94) 0%, rgb(20 16 13 / 0.78) 42%, rgb(20 16 13 / 0.2) 100%);
+}
+.saga__story { position: relative; margin-top: -100svh; }
+.saga__intro, .saga__step {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  gap: var(--space-m);
+  max-width: 40rem;
+  padding-block: var(--space-3xl);
+}
+.saga__title { font-size: var(--step-5); max-width: 9ch; }
+.saga__intro .lede { color: var(--ink-4); }
+.saga__year {
+  font-size: clamp(5.5rem, 2rem + 14vw, 14rem);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  color: var(--ink-4);
+}
+.saga__house { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.1; }
+.saga__house a { text-decoration: none; background: linear-gradient(var(--gold-bright), var(--gold-bright)) no-repeat 0 100% / 100% 1px; transition: color var(--dur-2) var(--ease-out); }
+.saga__house a:hover { color: var(--gold-bright); }
+.saga__text { font-size: var(--step-1); line-height: 1.5; color: var(--ink-4); max-width: 32ch; }
+@media (max-width: 760px) {
+  .saga__shade { background: linear-gradient(180deg, rgb(20 16 13 / 0.55) 0%, rgb(20 16 13 / 0.9) 55%, rgb(20 16 13 / 0.94) 100%); }
+  .saga__intro, .saga__step { align-content: end; padding-bottom: var(--space-3xl); }
+}
+
+/* ---------- As casas: three doors, each in its own voice ---------- */
+
+.houses { padding-top: var(--chapter-pad); background: var(--ink-0); }
+.houses__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  gap: var(--space-l) var(--gutter);
+}
+.houses__title { font-size: var(--step-5); max-width: 11ch; }
+
+.doors {
+  display: flex;
+  height: min(86svh, 54rem);
+  margin-top: var(--space-2xl);
+}
+.door {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--region);
+  color: var(--on-region);
+  overflow: hidden;
+  transition: flex-grow 900ms var(--ease-out);
+}
+@media (hover: hover) and (min-width: 900px) {
+  .doors:has(.door:hover) .door, .doors:has(.door:focus-within) .door { flex-grow: 0.8; }
+  .doors .door:hover, .doors .door:focus-within { flex-grow: 1.9; }
+}
+.door__link {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  color: inherit;
+  text-decoration: none;
+}
+.door__link:focus-visible { outline: 2px solid var(--on-region); outline-offset: -8px; border-radius: 0; }
+.door__media { position: relative; overflow: hidden; }
+.door__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 1400ms var(--ease-out);
+}
+.door:hover .door__media img, .door:focus-within .door__media img { scale: 1.06; }
+.door__no {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: clamp(4.5rem, 2rem + 7vw, 9.5rem);
+  line-height: 0.8;
+  white-space: nowrap;
+}
+.door__body {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-l) clamp(1.25rem, 2.4vw, 2.5rem) var(--space-xl);
+}
+.door__name {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: var(--step-3);
+  line-height: 1;
+}
+.door__meta { color: var(--on-region-muted); }
+.door__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-top: var(--space-s);
+  opacity: 0;
+  translate: -0.5rem 0;
+  transition: opacity var(--dur-3) var(--ease-out), translate var(--dur-3) var(--ease-out);
+}
+.door:hover .door__cta, .door:focus-within .door__cta { opacity: 1; translate: 0 0; }
+@media (hover: none) { .door__cta { opacity: 1; translate: 0 0; } }
+
+/* Pizzaria: the painted facade, cream below, heavy Inter. The number sits
+   on the seam between the painting and the cream. */
+.door--pizzaria .door__link { grid-template-rows: 1fr auto auto; }
+.door--pizzaria .door__no { padding-inline: clamp(1.25rem, 2.4vw, 2.5rem); margin-top: -0.42em; position: relative; }
+.door--pizzaria .door__media img { object-position: 50% 30%; }
+.door--pizzaria .door__name { text-transform: lowercase; font-size: var(--step-4); }
+
+/* Trattoria: the facade by day, under a red veil at the foot. */
+.door--trattoria .door__link { grid-template-rows: 1fr auto auto; }
+.door--trattoria .door__media img { object-position: 38% 50%; }
+.door--trattoria .door__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--red) 85%, transparent) 100%);
+}
+.door--trattoria .door__no { padding-inline: clamp(1.25rem, 2.4vw, 2.5rem); margin-top: -0.42em; position: relative; }
+
+/* Il Ristorante: no photograph yet, so the number is the image, drawn in
+   a fine gold line and set in Playfair italic. */
+.door--ristorante .door__link { grid-template-rows: 1fr auto; }
+.door--ristorante .door__no {
+  align-self: center;
+  justify-self: center;
+  font-size: clamp(7rem, 3rem + 11vw, 15rem);
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--gold-bright);
+  transition: letter-spacing 1200ms var(--ease-out);
+}
+.door--ristorante:hover .door__no, .door--ristorante:focus-within .door__no { letter-spacing: 0.02em; }
+.door--ristorante .door__body { justify-items: center; text-align: center; }
+
+@media (max-width: 899px) {
+  .houses__head { grid-template-columns: 1fr; }
+  .doors { flex-direction: column; height: auto; }
+  .door { min-height: min(34rem, 88svh); }
+  .door--ristorante { min-height: 26rem; }
+}
+
+/* ---------- Cardápios: one per house, never mixed ---------- */
+
+.menus { padding-block: var(--chapter-pad); background: var(--ink-0); }
+.menus__grid { row-gap: var(--space-2xl); align-items: start; }
+.menus__intro { grid-column: 1 / span 5; position: sticky; top: calc(var(--head-h) + var(--space-xl)); display: grid; gap: var(--space-m); }
+.menus__title { font-size: var(--step-4); max-width: 10ch; }
+.menus__list { grid-column: 7 / span 6; border-bottom: 1px solid var(--line-strong); }
+.menus__item {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: var(--space-m);
+  padding-block: var(--space-xl);
+  border-top: 1px solid var(--line-strong);
+}
+.menus__no {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: var(--step-4);
+  line-height: 0.9;
+  color: var(--gold);
+}
+.menus__body { display: grid; gap: var(--space-s); align-content: start; }
+.menus__house { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); line-height: 1.15; }
+.menus__body > p { color: var(--fg-muted); max-width: 52ch; }
+.menus__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-l); margin-top: var(--space-2xs); }
+@media (max-width: 900px) {
+  .menus__intro { grid-column: 1 / -1; position: static; }
+  .menus__list { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .menus__item { grid-template-columns: 1fr; gap: var(--space-xs); }
+}
+
+/* ---------- Onde: the street, drawn ---------- */
+
+.where { padding-block: var(--chapter-pad); background: var(--ink-0); border-top: 1px solid var(--line); }
+.where__head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: end;
+  gap: var(--space-l) var(--gutter);
+}
+.where__title { font-size: var(--step-4); max-width: 12ch; }
+
+/* House numbers in São Paulo count along the street, so the houses sit in
+   order and in proportion: odd numbers on one kerb, even on the other. */
+.avenue {
+  --street: 3.75rem;
+  position: relative;
+  height: 17rem;
+  margin-top: var(--space-2xl);
+}
+.avenue::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: var(--street);
+  translate: 0 -50%;
+  border-block: 1px solid var(--line-strong);
+  background: linear-gradient(90deg, var(--ink-2) 50%, transparent 0) repeat-x 0 50% / 28px 1px;
+  transform: scaleX(var(--draw, 1));
+  transform-origin: left;
+}
+.avenue__name { position: absolute; left: 0; top: 50%; translate: 0 -50%; padding-right: var(--space-s); background: var(--ink-0); color: var(--fg-muted); }
+.avenue__house, .avenue__neighbour {
+  position: absolute;
+  left: calc(8% + var(--n) / 126 * 78%);
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  text-align: center;
+}
+.avenue [data-side="odd"] { top: calc(50% + var(--street) / 2 + 1.1rem); }
+.avenue [data-side="even"] { bottom: calc(50% + var(--street) / 2 + 1.1rem); }
+/* A kerb tick from each house to the street */
+.avenue__house::before, .avenue__neighbour::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 1.1rem;
+  background: var(--line-strong);
+}
+.avenue [data-side="odd"]::before { bottom: 100%; }
+.avenue [data-side="even"]::before { top: 100%; }
+.avenue__house {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: var(--space-2xs) var(--space-xs);
+  color: var(--fg-muted);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.avenue__no {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: var(--step-3);
+  line-height: 1;
+}
+.avenue__label { font-size: var(--step--1); font-weight: 600; white-space: nowrap; }
+.avenue__house:hover { color: var(--ink-4); }
+.avenue__house[aria-selected="true"] { color: var(--ink-4); }
+.avenue__house[aria-selected="true"] .avenue__no { color: var(--gold-bright); }
+/* The chosen house lights a lamp on the kerb. */
+.avenue__house::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 9px; height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  transition: background-color var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out);
+}
+.avenue [data-side="odd"]::after { bottom: calc(100% + 1.1rem - 4.5px); }
+.avenue [data-side="even"]::after { top: calc(100% + 1.1rem - 4.5px); }
+.avenue__house[aria-selected="true"]::after {
+  background: var(--bulb-amber);
+  box-shadow: 0 0 0.5rem 0.15rem color-mix(in srgb, var(--bulb-amber) 55%, transparent);
+}
+.avenue__neighbour { color: var(--fg-muted); font-size: 0.6875rem; letter-spacing: 0.12em; padding: var(--space-2xs) 0; }
+.avenue__neighbour .num { display: block; font-family: var(--font-display); font-size: var(--step-1); letter-spacing: 0; }
+
+.where__panel { margin-top: var(--space-xl); }
+.where__panel:focus-visible { outline-offset: 8px; }
+.where__panel.is-changing > * { animation: panel-in var(--dur-3) var(--ease-out); }
+@keyframes panel-in { from { opacity: 0; translate: 0 0.75rem; } }
+.where__enter { margin-top: var(--space-m); }
+
+@media (max-width: 900px) {
+  .where__head { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .avenue { --street: 2.75rem; height: 14rem; }
+  .avenue__name { display: none; }
+  .avenue__no { font-size: var(--step-2); }
+  .avenue__label { font-size: 0.75rem; }
+  .avenue__house { padding-inline: var(--space-3xs); }
+}

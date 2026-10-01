@@ -1,32 +1,49 @@
 // Shared page chrome: live hours status, WhatsApp links, top bar,
 // chapter wire, mobile drawer and in-page anchors.
-import { HOUSE, openStatus, localParts, whatsappUrl } from './house.js';
+import { houseById, currentHouse, openStatus, serviceDay, whatsappUrl } from './houses.js';
 import { scrollToTarget, smooth } from './scroll.js';
 
 const BULB_COLOURS = ['--bulb-amber', '--bulb-rose', '--bulb-cobalt', '--bulb-emerald', '--bulb-tangerine', '--bulb-white'];
 
-export function initStatus() {
-  const render = () => {
-    const status = openStatus();
-    document.querySelectorAll('[data-status]').forEach((el) => {
-      el.dataset.open = String(status.open);
-      const text = el.querySelector('[data-status-text]');
-      if (text) text.textContent = status.label;
+/** The house an element speaks for: its own data-house, else the page's. */
+const houseOf = (el) => (el.dataset.house ? houseById(el.dataset.house) : currentHouse());
+
+/** Open/closed status from each house's real hours. Houses without
+ *  published hours show no status at all. */
+export function renderStatus(scope = document) {
+  scope.querySelectorAll('[data-status]').forEach((el) => {
+    const status = openStatus(houseOf(el));
+    el.hidden = !status;
+    if (!status) return;
+    el.dataset.open = String(status.open);
+    const text = el.querySelector('[data-status-text]');
+    if (text) text.textContent = status.label;
+  });
+  scope.querySelectorAll('[data-hours]').forEach((table) => {
+    const house = houseOf(table);
+    if (!house?.hours) return;
+    const today = serviceDay(house);
+    table.querySelectorAll('tr[data-days]').forEach((row) => {
+      row.classList.toggle('is-today', row.dataset.days.split(' ').map(Number).includes(today));
     });
-    const { weekday, minutes } = localParts();
-    // After midnight the night still belongs to yesterday's row.
-    const serviceDay = minutes < 3 * 60 ? (weekday + 6) % 7 : weekday;
-    document.querySelectorAll('[data-hours] tr[data-days]').forEach((row) => {
-      row.classList.toggle('is-today', row.dataset.days.split(' ').map(Number).includes(serviceDay));
-    });
-  };
-  render();
-  setInterval(render, 60_000);
+  });
 }
 
+export function initStatus() {
+  renderStatus();
+  setInterval(renderStatus, 60_000);
+}
+
+/** WhatsApp links follow the number in houses.js. */
 export function initWhatsappLinks() {
-  document.querySelectorAll('[data-wa-link]').forEach((a) => { a.href = whatsappUrl(); });
-  document.querySelectorAll('[data-wa-number]').forEach((el) => { el.textContent = HOUSE.whatsappLabel; });
+  document.querySelectorAll('[data-wa-link]').forEach((a) => {
+    const house = houseOf(a);
+    if (house?.contact.whatsapp) a.href = whatsappUrl(house);
+  });
+  document.querySelectorAll('[data-wa-number]').forEach((el) => {
+    const house = houseOf(el);
+    if (house?.contact.whatsappLabel) el.textContent = house.contact.whatsappLabel;
+  });
 }
 
 export function initBar() {

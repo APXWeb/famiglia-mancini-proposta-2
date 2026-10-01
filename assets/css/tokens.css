@@ -48,6 +48,11 @@
   --gold-bright: #e0ae52;   /* italic accent words, prices (9.3:1) */
   --alert: #ff8a73;         /* errors and cancellations on the ground */
 
+  /* The other houses of the group */
+  --green: #1d3a2e;         /* Il Ristorante: bottle green, a whole region */
+  --green-night: #0f1813;   /* Il Ristorante: its ground */
+  --umber: #5c4a3a;         /* Pizzaria: secondary text on cream (7:1) */
+
   /* The bulbs: light only, never surfaces. */
   --bulb-amber: #ffb43a;
   --bulb-rose: #ff6b9d;
@@ -102,6 +107,8 @@
   --max: 1440px;
   --measure: 62ch;
   --bar-h: 4.5rem;
+  --strip-h: 2.25rem;       /* the group strip above every bar */
+  --head-h: calc(var(--strip-h) + var(--bar-h));
   --radius: 2px;
   --radius-pill: 999px;
 
@@ -119,3 +126,56 @@
 
   color-scheme: dark;
 }
+
+/* ---------- The houses ----------
+   One brand, three houses. Each theme names the house's own region colour
+   (a chapter flood, a curtain, a reservation panel) and what reads on it.
+   data-theme can sit on any element: the reservation chapter changes theme
+   when the guest changes house. */
+
+[data-theme] {
+  --region: var(--ink-1);
+  --on-region: var(--ink-4);
+  --on-region-muted: var(--ink-3);
+  --region-line: rgba(243, 234, 217, 0.18);
+  --region-accent: var(--gold-bright);
+  --swatch: var(--gold);              /* the house's mark on black */
+  --house-face: var(--font-display);  /* the house's voice for numbers and names */
+  --house-weight: 700;
+  --house-style: normal;
+  --house-tracking: var(--display-tracking);
+}
+[data-theme="trattoria"] {
+  --region: var(--red);
+  --on-region: var(--ink-4);          /* 4.8:1 */
+  --on-region-muted: var(--ink-4);
+  --region-line: rgba(243, 234, 217, 0.35);
+  --region-accent: var(--ink-4);
+  --swatch: var(--red);
+}
+[data-theme="ristorante"] {
+  --region: var(--green);
+  --on-region: var(--ink-4);          /* 11:1 */
+  --on-region-muted: var(--ink-3);    /* 5.3:1 */
+  --region-line: rgba(243, 234, 217, 0.22);
+  --region-accent: var(--gold-bright);
+  --swatch: #4c8a6b;
+  --house-weight: 400;
+  --house-style: italic;
+  --house-tracking: -0.02em;
+}
+[data-theme="pizzaria"] {
+  --region: var(--ink-4);
+  --on-region: var(--ink-0);          /* 16:1 */
+  --on-region-muted: var(--umber);    /* 7:1 */
+  --region-line: rgba(20, 16, 13, 0.24);
+  --region-accent: var(--red);        /* 4.9:1 on cream */
+  --swatch: var(--ink-4);
+  --house-face: var(--font-body);
+  --house-weight: 800;
+  --house-tracking: -0.05em;
+}
+[data-theme="grupo"] {
+  --region: var(--ink-0);
+}
+

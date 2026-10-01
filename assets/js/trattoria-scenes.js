@@ -1,4 +1,4 @@
-// Scroll choreography for the home page. Runs only when motion is allowed;
+// Scroll choreography for the Trattoria page. Runs only when motion is allowed;
 // every element is visible and usable without it.
 
 export function initScenes({ festoon }) {

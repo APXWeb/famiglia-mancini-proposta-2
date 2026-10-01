@@ -1,0 +1,106 @@
+/* Visit blocks shared by every house: address, hours, contact, map, FAQ. */
+
+/* ---------- Visita ---------- */
+
+.visit { padding-block: var(--chapter-pad); background: var(--bg); }
+.visit__title { font-size: min(var(--step-5), 10.5vw); }
+.visit__grid { margin-top: var(--space-2xl); row-gap: var(--space-xl); }
+.visit__col { grid-column: span 4; display: grid; gap: var(--space-s); align-content: start; }
+.visit__col h3 { color: var(--gold); }
+.visit__col address { font-style: normal; font-size: var(--step-1); line-height: 1.45; }
+.visit__links .icon, .visit__contact .icon { width: 1.1em; height: 1.1em; }
+.visit__contact { display: grid; gap: var(--space-2xs); }
+.visit__contact a { display: inline-flex; align-items: center; gap: 0.5em; min-height: 2.75rem; text-decoration: none; overflow-wrap: anywhere; }
+.visit__contact a:hover { color: var(--gold); }
+.hours { width: 100%; }
+.hours th, .hours td { padding: 0.55rem 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 400; }
+.hours td { text-align: right; }
+.hours tr.is-today th, .hours tr.is-today td { color: var(--gold); font-weight: 600; }
+.hours tr.is-today th::after { content: " · hoje"; font-weight: 400; color: var(--fg-muted); }
+
+.map {
+  position: relative;
+  margin-top: var(--space-2xl);
+  aspect-ratio: 21 / 8;
+  overflow: hidden;
+}
+.map__load {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-m);
+  color: var(--ink-4);
+  border-block: 1px solid var(--line-strong);
+  transition: color var(--dur-2) var(--ease-out), background-color var(--dur-3) var(--ease-out);
+}
+.map__load > span { display: grid; text-align: left; gap: 0.2rem; }
+.map__load .display { font-size: var(--step-2); }
+.map__load .awning { color: var(--fg-muted); font-size: var(--step--2); }
+.map__load .icon { width: 2.5rem; height: 2.5rem; color: var(--gold); }
+.map__load:hover { color: var(--gold); background-color: var(--ink-1); }
+.map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(0.35) contrast(1.05); }
+.map:not([data-state]) { aspect-ratio: auto; height: clamp(7rem, 12vw, 10rem); }
+.map[data-state="loading"] .map__load { pointer-events: none; }
+.map[data-state="loading"] .map__load .awning::after { content: " · carregando…"; }
+
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--space-l) var(--gutter);
+  margin-top: var(--chapter-pad);
+}
+.faq__title { font-size: var(--step-3); }
+.faq__list { border-top: 1px solid var(--line-strong); }
+.faq details { border-bottom: 1px solid var(--line-strong); }
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-s);
+  min-height: 3.5rem;
+  padding-block: var(--space-s);
+  font-size: var(--step-1);
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "";
+  width: 0.7rem; height: 0.7rem;
+  flex: none;
+  border-right: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+  rotate: 45deg;
+  translate: 0 -0.2rem;
+  transition: rotate var(--dur-3) var(--ease-out), translate var(--dur-3) var(--ease-out);
+}
+.faq details[open] summary::after { rotate: 225deg; translate: 0 0.15rem; }
+.faq summary:hover { color: var(--gold); }
+.faq details p { padding-bottom: var(--space-m); color: var(--fg-muted); max-width: var(--measure); }
+.faq details a { color: var(--ink-4); }
+.faq details::details-content { block-size: 0; overflow: clip; transition: block-size var(--dur-3) var(--ease-out), content-visibility var(--dur-3) allow-discrete; }
+.faq details[open]::details-content { block-size: auto; }
+html { interpolate-size: allow-keywords; }
+
+@media (max-width: 900px) {
+  .visit__col { grid-column: 1 / -1; }
+  .faq { grid-template-columns: 1fr; }
+  .map { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- Open slot: something the house has not published yet ----------
+   Discreet and honest: a dashed outline, a label, and what belongs there. */
+
+.slot {
+  display: grid;
+  gap: 0.2rem;
+  max-width: 40rem;
+  padding: var(--space-s) var(--space-m);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--fg-muted);
+}
+.slot__label { color: var(--slot-accent, var(--gold)); font-size: 0.6875rem; }
+.slot__text { font-size: var(--step--1); }

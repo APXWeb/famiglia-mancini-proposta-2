@@ -1,22 +1,23 @@
-// Home page entry.
+// Famiglia Mancini page entry.
 import { initSmoothScroll, motionAllowed } from './scroll.js';
 import { initStatus, initWhatsappLinks, initBar, initChapterWire, initDrawer, initAnchors } from './chrome.js';
+import { initTransitions } from './transition.js';
 import { createFestoon } from './festoon.js';
 import { initBooking } from './booking.js';
-import { initScenes } from './scenes.js';
-import { initMap } from './map.js';
+import { initStreet } from './street.js';
 
 const motion = motionAllowed();
 if (motion) initSmoothScroll();
 
-initStatus();
+initTransitions();
 initWhatsappLinks();
 initBar();
 initChapterWire();
 initDrawer();
 initAnchors();
 initBooking();
-initMap();
+initStreet();
+initStatus();
 
 let festoon = null;
 const canvas = document.querySelector('[data-festoon]');
@@ -29,6 +30,13 @@ if (canvas) {
   }
 }
 
+// The choreography is only fetched when it will run.
 if (motion) {
-  initScenes({ festoon });
+  import('./hub-scenes.js')
+    .then(({ initScenes }) => initScenes({ festoon }))
+    .catch((err) => {
+      console.warn('Scenes unavailable:', err);
+      document.documentElement.classList.remove('has-motion');
+      festoon?.lightUp();
+    });
 }

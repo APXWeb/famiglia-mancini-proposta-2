@@ -17,7 +17,9 @@ Delegated (inferred from the brief, no interview round): static HTML/CSS/JS with
 
 ## Product Purpose
 
-The website of Famiglia Mancini Trattoria. It makes the house desirable before the visit and turns that desire into a reservation request (sent to the house over WhatsApp), a menu consultation, or directions to Rua Avanhandava.
+Scope changed on 2026-10-01: the second proposal is now the digital ecosystem of the whole Famiglia Mancini on Rua Avanhandava, one brand and three houses (Pizzaria nº 37, Trattoria nº 81, Il Ristorante nº 126). The group page (`/`) asks which house to enter; each house has its own page, data, menu and reservation channel, never mixed. The Trattoria section below still describes the one house with full material.
+
+For the Trattoria: the website of Famiglia Mancini Trattoria. It makes the house desirable before the visit and turns that desire into a reservation request (sent to the house over WhatsApp), a menu consultation, or directions to Rua Avanhandava.
 
 ## Positioning
 
@@ -32,6 +34,8 @@ A trattoria founded in May 1980 on Rua Avanhandava, the traditional house of the
 - E-mail: reservas@famigliamancini.com.br. Instagram @famigliamancini_oficial. TikTok @famigliamancini.
 - Grupo Mancini on the same street: Il Ristorante (nº 126, opened 2001), Pizzaria Famiglia Mancini (nº 37, founded 2004), Calligraphia (nº 40).
 - Full menu with prices exists (incumbent `cardapio.html`) plus an external PDF with the wine list.
+
+- Il Ristorante (nº 126, "Cucina & Música", 2001) and Pizzaria Famiglia Mancini (nº 37, 2004): official texts and full food menus from famigliamancini.com.br (read 2026-10-01), transcribed into each house's cardapio.html; photos are the small ones embedded in those menu PDFs. Their opening hours are not published officially (third-party guides contradict each other), so hours stay null and the reservation asks for a desired time. Per the user, all three houses take reservations through the same temporary WhatsApp until the proposal is accepted. The user chose to keep the name "Pizzaria Famiglia Mancini" (the official site also titles it "Pizza, Pasta & Música").
 
 ## Capabilities and Constraints
 

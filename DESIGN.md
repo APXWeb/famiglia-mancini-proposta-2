@@ -143,6 +143,18 @@ components:
 
 # Design System: Famiglia Mancini Trattoria
 
+## The family of houses (2026-10-01)
+
+The Trattoria system below is now one voice inside a group. Shared: the five-step ink ramp, cream, gold for numbers and focus, Playfair Display and Inter, the dark group strip above every bar, the reservation chapter, hairlines and open slots. Each house changes four things through `[data-theme]` in `tokens.css`: its region colour, the face of its numbers and name (`--house-face`, `--house-weight`, `--house-style`, `--house-tracking`), its swatch in the strip and its page ground.
+
+- **Group** (`/`): warm black, gold, the street's festoon lights, the painting of Rua Avanhandava as the shared story.
+- **Trattoria** (nº 81): Mancini red region, Playfair 700, everything described below.
+- **Il Ristorante** (nº 126): bottle green region (#1d3a2e) on a green-night ground (#0f1813), Playfair 400 and italic, centred compositions, gold drawn as a 1px outline. No photograph exists, so the number is the image.
+- **Pizzaria** (nº 37): cream ground and cream region, statements in Inter 800 lowercase with Playfair italic accents in red, the red street number as a poster, the painted facade as its picture. The strip and footer stay dark: the family around the house.
+
+Movement between houses is a curtain in the destination's region carrying its number in its own face; a door panel opens from its own rectangle. Open slots ("A publicar") are dashed hairline boxes with a gold (red on cream) label: honest gaps, never filler.
+
+
 ## Overview
 
 **Creative North Star: "The Lit Facade"**

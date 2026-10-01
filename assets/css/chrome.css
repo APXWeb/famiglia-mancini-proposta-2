@@ -1,4 +1,53 @@
-/* Shared chrome: top bar, chapter wire, mobile drawer, footer. */
+/* Shared chrome: group strip, top bar, chapter wire, mobile drawer, footer,
+   and the curtain between houses. */
+
+/* ---------- Group strip: the three houses, on every page ---------- */
+
+.strip {
+  height: var(--strip-h);
+  background: var(--ink-0);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-3);
+}
+.strip__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+.strip a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  height: var(--strip-h);
+  text-decoration: none;
+  transition: color var(--dur-2) var(--ease-out);
+}
+.strip a:hover, .strip a[aria-current] { color: var(--ink-4); }
+.strip__home img { width: 1.35rem; height: 1.35rem; }
+.strip__houses { display: flex; gap: clamp(1rem, 2.6vw, 2.5rem); }
+.strip__no { color: var(--gold); letter-spacing: 0.06em; }
+/* Each house is underlined in its own colour, drawn in on hover. */
+.strip__houses a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--swatch);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+.strip__houses a:hover::after, .strip__houses a[aria-current]::after { transform: none; }
+.strip a:focus-visible { outline-offset: -2px; }
+@media (max-width: 760px) {
+  .strip { font-size: 0.6875rem; }
+  .strip .awning { letter-spacing: 0.1em; }
+  .strip__home span, .strip__no { display: none; }
+  .strip__houses { flex: 1; justify-content: space-between; max-width: 22rem; margin-left: auto; }
+}
 
 /* ---------- Top bar ---------- */
 
@@ -6,15 +55,15 @@
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
-  height: var(--bar-h);
+  height: var(--head-h);
   transition: transform var(--dur-3) var(--ease-out), background-color var(--dur-3) var(--ease-out);
 }
 .bar.is-solid { background: color-mix(in srgb, var(--ink-0) 94%, transparent); }
 .bar.is-hidden { transform: translateY(-100%); }
-.bar.is-hidden .chapter-wire { transform: translateY(calc(var(--bar-h) * -1 + 0px)); }
+.bar.is-hidden .chapter-wire { transform: translateY(calc(var(--head-h) * -1)); }
 
 .bar__inner {
-  height: 100%;
+  height: var(--bar-h);
   display: flex;
   align-items: center;
   gap: var(--space-l);
@@ -152,22 +201,22 @@
   z-index: 150;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--bar-h) + var(--space-l)) var(--gutter) var(--space-l);
+  padding: calc(var(--head-h) + var(--space-l)) var(--gutter) var(--space-l);
   background: var(--ink-0);
   overflow-y: auto;
   overscroll-behavior: contain;
-  clip-path: circle(0 at calc(100% - 3rem) 2.25rem);
+  clip-path: circle(0 at calc(100% - 3rem) calc(var(--strip-h) + 2.25rem));
   visibility: hidden;
   transition: clip-path var(--dur-4) var(--ease-out), visibility 0s linear var(--dur-4);
 }
 .drawer.is-open {
-  clip-path: circle(150% at calc(100% - 3rem) 2.25rem);
+  clip-path: circle(150% at calc(100% - 3rem) calc(var(--strip-h) + 2.25rem));
   visibility: visible;
   transition: clip-path var(--dur-4) var(--ease-out), visibility 0s;
 }
 .drawer__close {
   position: absolute;
-  top: calc((var(--bar-h) - 2.75rem) / 2);
+  top: calc(var(--strip-h) + (var(--bar-h) - 2.75rem) / 2);
   right: var(--gutter);
 }
 .drawer__links { display: grid; gap: var(--space-2xs); margin-block: auto; }
@@ -239,3 +288,87 @@
 @media (max-width: 480px) {
   .foot__cols { grid-template-columns: 1fr; }
 }
+
+/* Drawer: the houses, under the page's own links */
+.drawer__houses { display: grid; gap: var(--space-2xs); margin-top: var(--space-l); padding-top: var(--space-m); border-top: 1px solid var(--line-strong); }
+.drawer__houses p { color: var(--fg-muted); }
+.drawer__houses a { display: flex; justify-content: space-between; align-items: baseline; min-height: 2.75rem; text-decoration: none; font-size: var(--step-1); }
+.drawer__houses a .num { color: var(--gold); font-size: var(--step--1); }
+.drawer__houses a[aria-current] { color: var(--gold-bright); }
+
+/* ---------- Curtain between houses ----------
+   Leaving: the curtain grows out of the pressed panel or link in the
+   destination's colour, carrying its number and name. Arriving: the inline
+   head script puts the same curtain on <html> before the first paint, and
+   transition.js lifts it. */
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  background: var(--region);
+  color: var(--on-region);
+  clip-path: var(--from);
+  transition: clip-path 720ms var(--ease-in-out);
+  pointer-events: none;
+}
+.curtain.is-closed { clip-path: var(--to); }
+.curtain__inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-s);
+  opacity: 0;
+  translate: 0 1.5rem;
+  transition: opacity 500ms var(--ease-out) 220ms, translate 700ms var(--ease-out) 220ms;
+}
+.curtain.is-closed .curtain__inner { opacity: 1; translate: 0 0; }
+.curtain__no, html.is-arriving::before {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: clamp(6rem, 22vw, 18rem);
+  line-height: 0.9;
+}
+.curtain__mark { width: clamp(6rem, 16vw, 10rem); height: auto; }
+.curtain__name {
+  font-family: var(--font-label);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+}
+
+html.is-arriving::before, html.is-arriving::after {
+  position: fixed;
+  left: 0; right: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  color: var(--on-region);
+  pointer-events: none;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1000ms var(--ease-in-out), opacity 400ms var(--ease-out);
+}
+html.is-arriving::before {
+  content: attr(data-no);
+  top: 0; bottom: 0;
+  background: var(--region);
+}
+html.is-arriving[data-theme="grupo"]::before {
+  content: "";
+  background: var(--ink-0) url("../img/medalhao-320.webp") no-repeat 50% 46% / clamp(6rem, 16vw, 10rem);
+}
+html.is-arriving::after {
+  content: attr(data-name);
+  top: calc(50% + clamp(3.5rem, 11vw, 9rem));
+  font-family: var(--font-label);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+}
+html.is-lifting::before { clip-path: inset(0 0 100% 0); }
+html.is-lifting::after { opacity: 0; }

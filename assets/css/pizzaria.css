@@ -1,0 +1,174 @@
+/* Pizzaria Famiglia Mancini, nº 37. The family's daytime house: a cream
+   ground, statements in heavy lowercase Inter with Playfair italic in
+   Mancini red for the accent, the painted facade of the street as its
+   picture, and the street number in red as a poster. The group strip and
+   the footer stay dark: that is the family around the house. */
+
+html[data-house="pizzaria"] {
+  --bg: var(--ink-4);
+  --fg: var(--ink-0);
+  --fg-muted: var(--umber);
+  --line: rgba(20, 16, 13, 0.14);
+  --line-strong: rgba(20, 16, 13, 0.32);
+  --focus: var(--red);
+  --slot-accent: var(--red);
+  --mark: var(--red);
+  color-scheme: light;
+  scrollbar-color: var(--umber) var(--ink-4);
+}
+.house--pizzaria ::selection { background: var(--ink-0); color: var(--ink-4); }
+
+/* Statements in the pizzaria's voice */
+.house--pizzaria .display {
+  font-family: var(--font-body);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+.house--pizzaria .display em {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--red);
+}
+.house--pizzaria .reserve .display em { color: var(--region-accent); }
+
+/* Chrome on cream */
+.house--pizzaria .bar.is-solid { background: color-mix(in srgb, var(--ink-4) 94%, transparent); }
+.house--pizzaria .bar__nav a:hover, .house--pizzaria .bar__nav a[aria-current] { color: var(--ink-0); }
+.house--pizzaria .bar__nav a::after { background: var(--red); box-shadow: none; }
+.house--pizzaria .drawer { background: var(--ink-4); }
+.house--pizzaria .drawer__links a:hover, .house--pizzaria .drawer__links a:focus-visible { color: var(--red); }
+.house--pizzaria .drawer__houses a .num { color: var(--red); }
+.house--pizzaria .drawer__houses a[aria-current] { color: var(--red); }
+.house--pizzaria .btn::before { background: var(--ink-0); }
+.house--pizzaria .btn:hover, .house--pizzaria .btn:focus-visible { color: var(--ink-4); }
+.house--pizzaria .btn--ghost { --btn-fg: var(--ink-0); }
+.house--pizzaria .wire-link:hover { color: var(--red); }
+.house--pizzaria .foot { color: var(--ink-4); --fg-muted: var(--ink-3); --line: rgba(243, 234, 217, 0.14); --focus: var(--gold-bright); }
+
+/* Visit block on cream */
+.house--pizzaria .visit__col h3 { color: var(--red); }
+.house--pizzaria .hours tr.is-today th, .house--pizzaria .hours tr.is-today td { color: var(--red); }
+.house--pizzaria .visit__contact a:hover { color: var(--red); }
+.house--pizzaria .map__load { color: var(--ink-0); }
+.house--pizzaria .map__load .icon { color: var(--red); }
+.house--pizzaria .map__load:hover { color: var(--red); background-color: rgba(20, 16, 13, 0.04); }
+
+/* ---------- Entrada: a poster ---------- */
+
+.p-hero {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--head-h) + clamp(3rem, 10svh, 7rem)) 0 var(--space-2xl);
+  overflow: hidden;
+  isolation: isolate;
+}
+.p-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: var(--space-2xl) var(--gutter);
+}
+.p-hero__title { display: grid; }
+.p-hero__word {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(4.25rem, 1rem + 12vw, 12.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.065em;
+  margin-left: -0.05em;
+}
+.p-hero__family {
+  margin-top: 0.55em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--step-3);
+  line-height: 1;
+  color: var(--red);
+}
+.p-hero__meta { margin-top: var(--space-xl); color: var(--umber); }
+.p-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-m) var(--space-l); margin-top: var(--space-xl); }
+.p-hero__art {
+  justify-self: center;
+  width: min(100%, 22rem);
+  rotate: 3deg;
+}
+.p-hero__art img {
+  width: 100%;
+  aspect-ratio: 420 / 900;
+  object-fit: cover;
+  border-radius: var(--radius);
+  filter: drop-shadow(0 30px 34px rgb(20 16 13 / 0.32));
+}
+.p-hero__art figcaption { margin-top: var(--space-s); color: var(--umber); font-size: 0.6875rem; rotate: -3deg; }
+/* The street number, as large as the wall allows. */
+.p-hero__no {
+  position: absolute;
+  right: -0.06em;
+  bottom: -0.2em;
+  z-index: -1;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(16rem, 44vw, 46rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+  color: var(--red);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .p-hero__grid { grid-template-columns: 1fr; }
+  .p-hero__art { width: min(70%, 18rem); justify-self: end; margin-right: var(--space-l); }
+  .p-hero__no { font-size: 62vw; }
+}
+
+/* ---------- A casa ---------- */
+
+.p-casa { padding-block: var(--chapter-pad); background: var(--ink-0); color: var(--ink-4); --fg: var(--ink-4); --fg-muted: var(--ink-3); --line-strong: rgba(243, 234, 217, 0.3); --slot-accent: var(--gold); }
+.p-casa .display em { color: var(--gold-bright); }
+.p-casa__grid { align-items: end; row-gap: var(--space-l); }
+.p-casa__title { grid-column: 1 / span 7; font-size: clamp(3.5rem, 1rem + 9vw, 9rem); }
+.p-casa__text { grid-column: 8 / span 5; font-size: var(--step-1); line-height: 1.5; color: var(--ink-3); }
+.p-casa__facts { display: grid; gap: var(--space-s); margin-top: var(--space-l); padding-top: var(--space-m); border-top: 1px solid var(--line-strong); font-size: var(--step-0); }
+.p-casa__facts li { color: var(--ink-4); }
+.p-casa__facts .awning { display: block; color: var(--gold-bright); margin-bottom: 0.2rem; }
+.p-casa__frames {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  align-items: end;
+  gap: var(--gutter);
+  margin-top: var(--space-3xl);
+}
+@media (max-width: 900px) {
+  .p-casa__title, .p-casa__text { grid-column: 1 / -1; }
+  .p-casa__frames { grid-template-columns: 1fr; }
+}
+
+/* The reservation is cream on a cream page: a rule marks where it starts. */
+.house--pizzaria .reserve { border-top: 1px solid var(--line-strong); }
+
+/* ---------- Na mesma rua ---------- */
+
+.house--pizzaria .next__item[data-theme="pizzaria"] { box-shadow: inset 0 0 0 1px var(--line-strong); }
+
+/* ---------- The menu page on cream ---------- */
+
+.house--pizzaria .carta-nav a:hover, .house--pizzaria .carta-nav a[aria-current="true"] { color: var(--ink-0); }
+.house--pizzaria .carta-nav a[aria-current="true"]::before { background: var(--red); box-shadow: none; }
+.house--pizzaria .carta-search__field:focus-within { border-color: var(--red); }
+.house--pizzaria .carta-search input::placeholder { color: var(--umber); }
+.house--pizzaria .carta-search__clear:hover, .house--pizzaria .menu-hero__back:hover { color: var(--red); }
+.house--pizzaria .carta__lead { color: var(--ink-0); }
+.house--pizzaria .carta__note { color: var(--red); }
+.house--pizzaria .carta__fillings { background: rgba(20, 16, 13, 0.05); }
+.house--pizzaria .carta__fillings strong { color: var(--ink-0); }
+.house--pizzaria .carta__no { color: var(--red); }
+.house--pizzaria .carta__price { color: var(--ink-0); }
+.house--pizzaria .carta__tag { color: var(--umber); }
+.house--pizzaria mark { background: color-mix(in srgb, var(--red) 22%, transparent); }
+.house--pizzaria .menu-close { background: var(--ink-0); color: var(--ink-4); }
+.house--pizzaria .menu-close .display em { color: var(--gold-bright); }
+.house--pizzaria .menu-close .btn--ink { --btn-bg: var(--red); }
+.house--pizzaria .menu-close .btn--ink::before { background: var(--ink-4); }
+.house--pizzaria .menu-close .btn--ink:hover, .house--pizzaria .menu-close .btn--ink:focus-visible { color: var(--ink-0); }

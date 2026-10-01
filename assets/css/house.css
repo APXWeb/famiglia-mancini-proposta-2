@@ -1,0 +1,156 @@
+/* Components shared by the house pages built from houses.js (Il Ristorante,
+   Pizzaria). Each house's own stylesheet gives them its voice; what lives
+   here is the structure they share with the rest of the family. */
+
+section[data-chapter] { position: relative; }
+
+html.has-motion:not(.motion-ready) [data-hero-title],
+html.has-motion:not(.motion-ready) [data-hero-fade] {
+  opacity: 0;
+  animation: reveal-fallback 0.6s var(--ease-out) 3.5s forwards;
+}
+@keyframes reveal-fallback { to { opacity: 1; } }
+
+/* The house's mark in the bar: its street number in its own face. */
+.house-mark { display: inline-flex; align-items: baseline; gap: 0.6rem; text-decoration: none; }
+.house-mark__no {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--mark, var(--gold-bright));
+}
+.house-mark__name { font-size: 0.75rem; font-weight: 500; letter-spacing: var(--label-tracking); text-transform: uppercase; }
+@media (max-width: 400px) { .house-mark__name { display: none; } }
+
+/* ---------- Frames waiting for the house's photographs ---------- */
+
+.frame-slot {
+  position: relative;
+  display: grid;
+  align-items: end;
+  aspect-ratio: 4 / 3;
+  padding: var(--space-m);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--fg) 3%, transparent);
+}
+.frame-slot--tall { aspect-ratio: 3 / 4; }
+.frame-slot--wide { aspect-ratio: 16 / 10; }
+.frame-slot--square { aspect-ratio: 1; }
+.frame-slot .slot { border: 0; padding: 0; }
+
+/* ---------- Cardápio: the house's categories, into the full menu ---------- */
+
+.carte { padding-block: var(--chapter-pad); }
+.carte__grid { row-gap: var(--space-xl); align-items: start; }
+.carte__intro { grid-column: 1 / span 5; display: grid; gap: var(--space-m); position: sticky; top: calc(var(--head-h) + var(--space-xl)); }
+.carte__title { font-size: var(--step-4); }
+.carte__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-l); margin-top: var(--space-2xs); }
+.carte__board { grid-column: 7 / span 6; }
+.carte__index { border-top: 1px solid var(--line-strong); }
+.carte__index a {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-s);
+  padding: var(--space-s) var(--space-2xs);
+  border-bottom: 1px solid var(--line-strong);
+  text-decoration: none;
+  isolation: isolate;
+  transition: color var(--dur-2) var(--ease-out);
+}
+/* The row fills with the house's colour from below. */
+.carte__index a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--region);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+.carte__index a:hover, .carte__index a:focus-visible { color: var(--on-region); }
+.carte__index a:hover::before, .carte__index a:focus-visible::before { transform: none; }
+.carte__cat {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: var(--step-2);
+  line-height: 1.15;
+}
+.carte__count { color: inherit; opacity: 0.8; white-space: nowrap; }
+@media (max-width: 900px) {
+  .carte__intro { position: static; }
+  .carte__intro, .carte__board { grid-column: 1 / -1; }
+}
+
+/* ---------- Photos from the house's own menu ---------- */
+
+.frame-photo { display: grid; gap: var(--space-2xs); align-content: start; }
+.frame-photo img { width: 100%; height: auto; border-radius: var(--radius); }
+.frame-photo figcaption { color: var(--fg-muted); font-size: 0.6875rem; }
+
+/* ---------- Visit fallback (before the script fills the block) ---------- */
+
+.visit__fallback { margin-top: var(--space-xl); font-style: normal; font-size: var(--step-1); }
+
+/* ---------- Na mesma rua: the way into the other houses ---------- */
+
+.next { padding-block: var(--chapter-pad); border-top: 1px solid var(--line); }
+.next__title { font-size: var(--step-4); }
+.next__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin-top: var(--space-2xl);
+}
+.next__item { background: var(--region); color: var(--on-region); border-radius: var(--radius); overflow: hidden; }
+.next__link {
+  display: grid;
+  grid-template-rows: 1fr auto auto auto;
+  gap: var(--space-2xs);
+  min-height: clamp(18rem, 30vw, 24rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  color: inherit;
+  text-decoration: none;
+}
+.next__link:focus-visible { outline: 2px solid var(--on-region); outline-offset: -8px; }
+.next__no {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: clamp(4.5rem, 2rem + 7vw, 9rem);
+  line-height: 0.8;
+  transition: translate var(--dur-4) var(--ease-out);
+}
+.next__name {
+  font-family: var(--house-face);
+  font-weight: var(--house-weight);
+  font-style: var(--house-style);
+  letter-spacing: var(--house-tracking);
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+.next__meta { color: var(--on-region-muted); }
+.next__cta { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-s); }
+.next__cta .icon { transition: translate var(--dur-3) var(--ease-out); }
+.next__link:hover .next__no { translate: 0.15em 0; }
+.next__link:hover .next__cta .icon { translate: 0.3em 0; }
+.next__item[data-theme="ristorante"] .next__no { color: transparent; -webkit-text-stroke: 1.5px var(--gold-bright); }
+@media (max-width: 700px) {
+  .next__list { grid-template-columns: 1fr; }
+}
+
+/* House pages have no mascot or sign in the footer. */
+.foot--house { padding-top: var(--space-2xl); }
+.foot--house .foot__cols { margin-top: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 700px) {
+  .foot--house .foot__cols { grid-template-columns: 1fr; }
+}

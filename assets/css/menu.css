@@ -1,7 +1,7 @@
 /* Cardápio page: the menu board, with numbers, leaders and prices. */
 
 .menu-hero {
-  padding-block: calc(var(--bar-h) + var(--space-3xl)) var(--space-2xl);
+  padding-block: calc(var(--head-h) + var(--space-3xl)) var(--space-2xl);
   border-bottom: 1px solid var(--line);
 }
 .menu-hero__inner {
@@ -30,10 +30,10 @@
 }
 .carta-aside {
   position: sticky;
-  top: calc(var(--bar-h) + var(--space-l));
+  top: calc(var(--head-h) + var(--space-l));
   display: grid;
   gap: var(--space-xl);
-  max-height: calc(100svh - var(--bar-h) - var(--space-xl));
+  max-height: calc(100svh - var(--head-h) - var(--space-xl));
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -98,7 +98,7 @@
 .carta__cat {
   padding-block: var(--space-2xl);
   border-top: 1px solid var(--line-strong);
-  scroll-margin-top: calc(var(--bar-h) + var(--space-m));
+  scroll-margin-top: calc(var(--head-h) + var(--space-m));
 }
 .carta__cat:first-child { border-top: 0; padding-top: 0; }
 .carta__head { display: grid; gap: var(--space-2xs); margin-bottom: var(--space-l); }
@@ -182,11 +182,11 @@ mark { background: color-mix(in srgb, var(--gold) 35%, transparent); color: inhe
   }
   .carta-nav {
     position: sticky;
-    top: var(--bar-h);
+    top: var(--head-h);
     z-index: 20;
     margin-inline: calc(var(--gutter) * -1);
     padding-inline: var(--gutter);
-    background: var(--ink-0);
+    background: var(--bg);
     border-block: 1px solid var(--line);
     overflow-x: auto;
     scrollbar-width: none;
@@ -209,7 +209,7 @@ mark { background: color-mix(in srgb, var(--gold) 35%, transparent); color: inhe
 
 /* ---------- Close ---------- */
 
-.menu-close { background: var(--red); color: var(--ink-4); padding-block: var(--chapter-pad); }
+.menu-close { background: var(--region, var(--red)); color: var(--on-region, var(--ink-4)); padding-block: var(--chapter-pad); }
 .menu-close ::selection { background: var(--ink-0); color: var(--ink-4); }
 .menu-close :focus-visible { outline-color: var(--ink-4); }
 .menu-close .display em { color: inherit; }
@@ -219,3 +219,7 @@ mark { background: color-mix(in srgb, var(--gold) 35%, transparent); color: inhe
 
 .foot--compact { padding-block: var(--space-l); }
 .foot--compact .foot__legal { margin-top: 0; }
+
+/* Notes from the house's menu (couvert, delivery, children) */
+.menu-hero__notes { display: grid; gap: var(--space-2xs); margin-block: var(--space-2xs) var(--space-s); color: var(--fg-muted); font-size: var(--step--1); }
+.menu-hero__notes .awning { color: var(--fg); margin-right: 0.4em; }

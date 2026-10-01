@@ -8,7 +8,7 @@ html {
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: var(--bar-h);
+  scroll-padding-top: var(--head-h);
 }
 
 body {
