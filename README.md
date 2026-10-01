@@ -11,6 +11,7 @@ npm install
 npm run setup     # copia GSAP/Lenis/fontes para assets/ e gera as imagens WebP
 npm run serve     # http://localhost:4173
 npm test          # Playwright, desktop e mobile
+npm run stamp     # antes de publicar: versiona CSS e JS (?v=…) para o navegador não misturar arquivos de duas publicações
 ```
 
 `assets/vendor`, `assets/fonts` e `assets/img` já estão gerados; `npm run setup` só é necessário ao atualizar bibliotecas ou imagens.

@@ -1,8 +1,8 @@
 // Trattoria cardápio page: search across every dish and a category rail that follows
 // the reader.
-import { initSmoothScroll, motionAllowed } from './scroll.js';
-import { initStatus, initWhatsappLinks, initBar, initDrawer, initAnchors } from './chrome.js';
-import { initTransitions } from './transition.js';
+import { initSmoothScroll, motionAllowed } from './scroll.js?v=8064ba07';
+import { initStatus, initWhatsappLinks, initBar, initDrawer, initAnchors } from './chrome.js?v=93ce0b70';
+import { initTransitions } from './transition.js?v=358d9512';
 
 if (motionAllowed()) {
   initSmoothScroll();

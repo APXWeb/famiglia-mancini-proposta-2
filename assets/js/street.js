@@ -1,10 +1,10 @@
 // The street drawn on the group page: each house on Rua Avanhandava is a tab,
 // and the panel under the street shows that house's address, hours and
 // contact, straight from houses.js.
-import { houseById } from './houses.js';
-import { visitHtml } from './visit.js';
-import { initMap } from './map.js';
-import { renderStatus } from './chrome.js';
+import { houseById } from './houses.js?v=9bed76d7';
+import { visitHtml } from './visit.js?v=b65322cf';
+import { initMap } from './map.js?v=deee434b';
+import { renderStatus } from './chrome.js?v=93ce0b70';
 
 export function initStreet() {
   const tabs = [...document.querySelectorAll('[data-avenue] [role="tab"]')];

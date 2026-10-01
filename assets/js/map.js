@@ -1,7 +1,7 @@
 // Google maps load only when asked for: no third-party requests, cookies or
 // weight until the visitor wants one. Each [data-map] shows the house named
 // by its data-house (or the page's house).
-import { houseById, currentHouse, mapEmbedUrl, fullAddress } from './houses.js';
+import { houseById, currentHouse, mapEmbedUrl, fullAddress } from './houses.js?v=9bed76d7';
 
 export function initMap(scope = document) {
   scope.querySelectorAll('[data-map]').forEach((box) => {

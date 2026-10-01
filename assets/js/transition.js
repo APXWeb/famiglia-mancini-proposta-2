@@ -3,7 +3,7 @@
 // destination, which carries its street number and name. The next page opens
 // already behind the same curtain (see the inline script in each <head>) and
 // lifts it. Without motion, or with a modifier key, links behave normally.
-import { houseById } from './houses.js';
+import { houseById } from './houses.js?v=9bed76d7';
 
 const KEY = 'mancini.arrive';
 const OUT_MS = 720;

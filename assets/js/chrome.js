@@ -1,7 +1,7 @@
 // Shared page chrome: live hours status, WhatsApp links, top bar,
 // chapter wire, mobile drawer and in-page anchors.
-import { houseById, currentHouse, openStatus, serviceDay, whatsappUrl } from './houses.js';
-import { scrollToTarget, smooth } from './scroll.js';
+import { houseById, currentHouse, openStatus, serviceDay, whatsappUrl } from './houses.js?v=9bed76d7';
+import { scrollToTarget, smooth } from './scroll.js?v=8064ba07';
 
 const BULB_COLOURS = ['--bulb-amber', '--bulb-rose', '--bulb-cobalt', '--bulb-emerald', '--bulb-tangerine', '--bulb-white'];
 

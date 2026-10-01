@@ -8,7 +8,7 @@
 // for the time the guest would like, and says the house will confirm it. A
 // house with no channel at all says so plainly and sends nothing. Requests sent from this device are kept in localStorage so
 // the guest can ask for a change or a cancellation later.
-import { HOUSES, houseById, canBook, hasSlots, withArticle, siteUrl, routeUrl, WEEKDAYS, clockLabel, clockValue, slotsFor, localParts, whatsappUrl } from './houses.js';
+import { HOUSES, houseById, canBook, hasSlots, withArticle, siteUrl, routeUrl, WEEKDAYS, clockLabel, clockValue, slotsFor, localParts, whatsappUrl } from './houses.js?v=9bed76d7';
 
 const STORAGE_KEY = 'mancini.pedidos.v1';
 const MAX_PARTY = 40;

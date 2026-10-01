@@ -1,11 +1,11 @@
 // Trattoria page entry.
-import { initSmoothScroll, motionAllowed } from './scroll.js';
-import { initStatus, initWhatsappLinks, initBar, initChapterWire, initDrawer, initAnchors } from './chrome.js';
-import { initTransitions } from './transition.js';
-import { createFestoon } from './festoon.js';
-import { initBooking } from './booking.js';
-import { initScenes } from './trattoria-scenes.js';
-import { initMap } from './map.js';
+import { initSmoothScroll, motionAllowed } from './scroll.js?v=8064ba07';
+import { initStatus, initWhatsappLinks, initBar, initChapterWire, initDrawer, initAnchors } from './chrome.js?v=93ce0b70';
+import { initTransitions } from './transition.js?v=358d9512';
+import { createFestoon } from './festoon.js?v=ba2115cf';
+import { initBooking } from './booking.js?v=e498dc82';
+import { initScenes } from './trattoria-scenes.js?v=3d9f3c5b';
+import { initMap } from './map.js?v=deee434b';
 
 const motion = motionAllowed();
 if (motion) initSmoothScroll();

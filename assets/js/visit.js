@@ -1,7 +1,7 @@
 // Address, hours, contact and map for one house, drawn from houses.js.
 // Whatever the house has not published yet is shown as an open slot, never
 // filled in.
-import { fullAddress, routeUrl, hoursTable, whatsappUrl, withArticle, siteUrl } from './houses.js';
+import { fullAddress, routeUrl, hoursTable, whatsappUrl, withArticle, siteUrl } from './houses.js?v=9bed76d7';
 
 const icon = (id) => `<svg class="icon" aria-hidden="true"><use href="#${id}"/></svg>`;
 const NEW_TAB = '<span class="visually-hidden"> (abre em nova aba)</span>';
