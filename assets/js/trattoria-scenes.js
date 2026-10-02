@@ -1,6 +1,8 @@
 // Scroll choreography for the Trattoria page. Runs only when motion is allowed;
 // every element is visible and usable without it.
 
+import { revealHeadings } from './reveal.js?v=123b7628';
+
 export function initScenes({ festoon }) {
   const { gsap, ScrollTrigger, SplitText } = window;
   gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +15,7 @@ export function initScenes({ festoon }) {
   heroExit(gsap, festoon);
   if (SplitText) {
     gsap.registerPlugin(SplitText);
-    headings(gsap, SplitText);
+    revealHeadings(gsap, SplitText, 'main h2.display:not(.door__title), .faq__title, .foot__sign');
   }
   door(gsap);
   salao(gsap);
@@ -76,26 +78,6 @@ function heroExit(gsap, festoon) {
       },
     });
   }
-}
-
-/* Chapter headings rise line by line out of a mask. */
-function headings(gsap, SplitText) {
-  document.querySelectorAll('main h2.display:not(.door__title), .faq__title, .foot__sign').forEach((el) => {
-    SplitText.create(el, {
-      type: 'lines',
-      mask: 'lines',
-      autoSplit: true,
-      onSplit(self) {
-        return gsap.from(self.lines, {
-          yPercent: 105,
-          duration: 1.15,
-          stagger: 0.09,
-          ease: 'expo.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        });
-      },
-    });
-  });
 }
 
 /* Signature: the medallion becomes the door. The sign turns away and leaves

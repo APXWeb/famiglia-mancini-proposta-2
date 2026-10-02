@@ -32,7 +32,7 @@ if (canvas) {
 
 // The choreography is only fetched when it will run.
 if (motion) {
-  import('./hub-scenes.js?v=fc31254e')
+  import('./hub-scenes.js?v=1ee9cb1a')
     .then(({ initScenes }) => initScenes({ festoon }))
     .catch((err) => {
       console.warn('Scenes unavailable:', err);

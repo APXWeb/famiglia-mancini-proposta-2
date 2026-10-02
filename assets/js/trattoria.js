@@ -4,7 +4,7 @@ import { initStatus, initWhatsappLinks, initBar, initChapterWire, initDrawer, in
 import { initTransitions } from './transition.js?v=358d9512';
 import { createFestoon } from './festoon.js?v=ba2115cf';
 import { initBooking } from './booking.js?v=e498dc82';
-import { initScenes } from './trattoria-scenes.js?v=3d9f3c5b';
+import { initScenes } from './trattoria-scenes.js?v=c81bdb1c';
 import { initMap } from './map.js?v=deee434b';
 
 const motion = motionAllowed();

@@ -1,6 +1,8 @@
 // Scroll choreography for the Famiglia Mancini page. Loaded only when motion
 // is allowed; every element is visible and usable without it.
 
+import { revealHeadings } from './reveal.js?v=123b7628';
+
 export function initScenes({ festoon }) {
   const { gsap, ScrollTrigger, SplitText } = window;
   gsap.registerPlugin(ScrollTrigger);
@@ -11,7 +13,7 @@ export function initScenes({ festoon }) {
   entryExit(gsap, festoon);
   if (SplitText) {
     gsap.registerPlugin(SplitText);
-    headings(gsap, SplitText);
+    revealHeadings(gsap, SplitText, 'main h2.display, .foot__sign');
   }
   saga(gsap);
   doors(gsap);
@@ -62,25 +64,6 @@ function entryExit(gsap, festoon) {
       onUpdate: (self) => festoon.setProgress(self.progress),
     });
   }
-}
-
-function headings(gsap, SplitText) {
-  document.querySelectorAll('main h2.display, .foot__sign').forEach((el) => {
-    SplitText.create(el, {
-      type: 'lines',
-      mask: 'lines',
-      autoSplit: true,
-      onSplit(self) {
-        return gsap.from(self.lines, {
-          yPercent: 105,
-          duration: 1.15,
-          stagger: 0.09,
-          ease: 'expo.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        });
-      },
-    });
-  });
 }
 
 /* The painting opens from a window into the whole screen, then darkens so
